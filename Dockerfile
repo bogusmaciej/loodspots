@@ -40,11 +40,12 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 # Switch to the non-privileged user to run the application.
 RUN chown -R appuser:appuser /app
-RUN chmod 777 /app/website/static/data
-USER appuser
 
 # Copy the source code into the container.
 COPY . .
+
+RUN chmod 777 /app/
+USER appuser
 
 # Expose the port that the application listens on.
 EXPOSE 8000
