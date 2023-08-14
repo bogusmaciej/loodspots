@@ -1,0 +1,119 @@
+body{
+    font-size: 15pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #551f23;
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    width: 100%;
+    height:8rem;
+    padding: 1rem;
+    padding-left: 10%;
+    padding-right: 10%;
+    border-bottom: 1px solid black;
+    margin: 0;
+    box-sizing: border-box;
+    background-color: #6e4641;
+    color: #f7eedd;
+}
+
+.header_block{
+    position: relative;
+    float: left;
+    height: 8rem;
+    width: 50%;
+}
+
+.logo{
+    position: absolute;
+    left: 1rem;
+    height: 6rem;
+}
+
+.reset_btn{
+    position: absolute;
+    right :1rem;
+}
+
+.loodspot{
+    position: relative;
+    width: 90%;
+    height: 5rem;
+    border: 1px solid black;
+    margin-top: 1rem;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background-color: #f7eedd;
+}
+
+.deleted{
+    background-color: #f7eedd50;
+    color: #551f2350;
+}
+
+.loodspot_action_btn{
+    position: absolute;
+    right: 0;
+    text-align: center;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 5px;
+    margin: 1rem;
+    padding-top: 9pt;
+    border: 1px solid black;
+    box-sizing: border-box;
+    cursor: pointer;
+    background-color: #6e4641;
+    color: #f7eedd;
+}
+
+.loodspot_info{
+    font-size: 20pt;
+    padding-top: 1.5rem;
+    height: 5rem;
+    box-sizing: border-box;
+    float: left;
+}
+
+.loodspot_name{
+    width: 65%;
+    padding-left: 2rem;
+    overflow-wrap: break-word;
+}
+
+.loodspot_city{
+    width: 12%;
+    text-align: center;
+    background-color: #6e4641;
+    color: #f7eedd;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.distance{
+    width: fit-content;
+    padding-right: 1rem;
+    position: absolute;
+    right: 0;
+}
+
+.loodspots_block{
+    width: 50%;
+    box-sizing: border-box;
+    float: left;
+    padding: 5%;
+}
+
+.reset_btn{
+    margin-top: 1.5rem;
+    height: 3rem;
+    font-size: 12pt;
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding-left:2rem;
+    padding-right: 2rem;
+    background-color: #f7eedd;
+    cursor: pointer;
+}
