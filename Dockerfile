@@ -44,7 +44,7 @@ RUN chown -R appuser:appuser /app
 # Copy the source code into the container.
 COPY . .
 
-RUN chmod 777 /app/
+RUN chmod 777 /app/website/static/data/loodspots_deleted.txt
 USER appuser
 
 # Expose the port that the application listens on.
