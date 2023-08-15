@@ -1,6 +1,11 @@
+:root {
+    --loodspot-block-height: 14rem;
+    --loodspot-block-width: 70%;
+}
+
 body{
     font-size: 15pt;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: #551f23;
     margin: 0;
     padding: 0;
@@ -9,14 +14,20 @@ body{
 header{
     width: 100%;
     height:8rem;
-    padding: 1rem;
-    padding-left: 10%;
-    padding-right: 10%;
     border-bottom: 1px solid black;
     margin: 0;
     box-sizing: border-box;
-    background-color: #6e4641;
-    color: #f7eedd;
+    background: url("https://goodlood.com/app/images/background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: white;
+}
+
+.loodspots_block h1{
+    width: fit-content;
+    margin: 0;
+    margin-bottom: 3rem;
+    float: left;
 }
 
 .header_block{
@@ -24,96 +35,217 @@ header{
     float: left;
     height: 8rem;
     width: 50%;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
 }
 
-.logo{
-    position: absolute;
-    left: 1rem;
+
+.logo_block{
+    font-size: 25pt;
+    font-weight: lighter;
+    padding-left: 10%;   
+}
+
+.logo_block img{
     height: 6rem;
 }
 
+
+.reset_btn_block{
+    justify-content: right;
+    padding-right: 10%;
+}
+
 .reset_btn{
-    position: absolute;
-    right :1rem;
-}
-
-.loodspot{
-    position: relative;
-    width: 90%;
-    height: 5rem;
-    border: 1px solid black;
-    margin-top: 1rem;
-    box-sizing: border-box;
-    border-radius: 10px;
-    background-color: #f7eedd;
-}
-
-.deleted{
-    background-color: #f7eedd50;
-    color: #551f2350;
-}
-
-.loodspot_action_btn{
-    position: absolute;
-    right: 0;
-    text-align: center;
     height: 3rem;
-    width: 3rem;
-    border-radius: 5px;
-    margin: 1rem;
-    padding-top: 9pt;
-    border: 1px solid black;
-    box-sizing: border-box;
-    cursor: pointer;
-    background-color: #6e4641;
-    color: #f7eedd;
-}
-
-.loodspot_info{
     font-size: 20pt;
-    padding-top: 1.5rem;
-    height: 5rem;
-    box-sizing: border-box;
-    float: left;
-}
-
-.loodspot_name{
-    width: 65%;
-    padding-left: 2rem;
-    overflow-wrap: break-word;
-}
-
-.loodspot_city{
-    width: 12%;
-    text-align: center;
-    background-color: #6e4641;
-    color: #f7eedd;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-.distance{
-    width: fit-content;
-    padding-right: 1rem;
-    position: absolute;
-    right: 0;
+    border-radius: 30px;
+    color: white;
+    padding-left:4rem;
+    padding-right: 4rem;
+    background-color: rgba(255, 255, 255, 0);
+    cursor: pointer;
+    border: 3px solid white;
 }
 
 .loodspots_block{
     width: 50%;
     box-sizing: border-box;
     float: left;
-    padding: 5%;
+    padding-top: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.reset_btn{
-    margin-top: 1.5rem;
-    height: 3rem;
-    font-size: 12pt;
-    border-radius: 10px;
+.loodspots_block_content{
+    width: var(--loodspot-block-width);
+}
+
+.loodspot{
+    width: 100%;
+    border-radius: 5px;
+    height: var(--loodspot-block-height);
     box-sizing: border-box;
-    padding-left:2rem;
-    padding-right: 2rem;
-    background-color: #f7eedd;
+    box-shadow: 0px 0px 20px 10px rgba(198, 198, 198, 1);
+    font-weight: lighter;
+    margin-right: 0;
+    margin-bottom: 3rem;
+    float: left;
+    transition: 0.3s ease-out;
+}
+
+.deleted{
+    color: #551f2340;
+    background-color: #5858582f;
+}
+
+.deleted .color_bar{
+    background-color: #f3999440;
+}
+
+.deleted .color_bar .color_bar_contrast{
+    background-color: #561d2540;
+}
+
+.loodspot_block_top{
+    width: 100%;
+    height: calc(var(--loodspot-block-height) * 2 / 3 - 1rem);
+    box-sizing: border-box;
+}
+
+.loodspot_block_bottom{
+    width: 100%;
+    height: calc(var(--loodspot-block-height) / 3 );
+    background: url("https://goodlood.com/app/images/background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-sizing: border-box;
+    transition: 0.3s ease-out;
+}
+
+.user_loodspot .loodspot_block_top{
+    padding-left: 5%;
+}
+
+.btn_block{
+    width: 100%;
+    height: 4rem;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+}
+
+.loodspot_action_btn{
+    box-sizing: border-box;
+    color: white;
+    text-shadow: 1px 1px 4px rgb(105, 105, 105);
+    font-size: 22pt;
+}
+
+.loodspot_change_transition{
+    transform: scale(0.95);
+    opacity: 0;
+    transition: 0.3s all ease-out;
+}
+
+.user_loodspot .loodspot_block_bottom:hover{
+    transform: scale(1.02);
+    background-position: 0; 
+    border-radius: 10px;
+    transition: 0.3s ease-out;
+}
+
+.color_bar{
+    width: 100%;
+    height: 1rem;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    box-sizing: border-box;
+    background-color: #f39994;
+}
+
+.color_bar_contrast{
+    width: 20%;
+    height: 1rem;
+    border-top-left-radius: 5px;
+    box-sizing: border-box;
+    background-color: #561d25;
+}
+
+.city_block{
+    width: 20%;
+    height: 8rem;
+    box-sizing: border-box;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.city{
+    box-sizing: border-box;
+    background-color: red;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    padding-top: calc(2.5rem - 18pt / 2);
+    color: white;
+    font-size: 20pt;
+    text-align: center;
+
+    background-color: #f39994;
+    text-shadow: 1px 1px 4px rgb(105, 105, 105);
+}
+
+.name_block{
+    width: 80%;
+    height: 8rem;
+    float: left;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding-left: 2%;
+}
+
+.name{
+    box-sizing: border-box;
+    font-size: 25pt;
+}
+
+.address_block{
+    display: flex;
+    align-items: center;
+}
+
+.address_block, .distance_block{
+    box-sizing: border-box;
+    width: 70%;
+    height: calc(var(--loodspot-block-height) / 3 );
+    float: left;
+    display: flex;
+    align-items: center;
+    font-size: 25pt;
+    color: white;
+    text-shadow: 1px 1px 4px rgb(105, 105, 105);
+}
+
+.distance_block{
+    width: 30%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.address{
+    font-size: 15pt;
+    margin-left: 10%;
+    font-weight: lighter;
+    text-align: left;
 }

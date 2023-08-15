@@ -3,31 +3,36 @@ const content_block_all = document.querySelector(".all_loodspots");
 const content_block_not_all = document.querySelector(".not_all_loodspots");
 const content_block_deleted = document.querySelector(".deleted_loodspots");
 
-
-function deleteLoodspot(id){
+async function deleteLoodspot(id){
     fetch("/delete-spot", {
         method: "POST",
         body: JSON.stringify({ spot_id:id}),
     });
     el = document.getElementById(id);
-    el.className = "loodspot deleted";
+    el.className = "loodspot user_loodspot loodspot_change_transition";
+    await sleep(400);
+    el.className = "loodspot user_loodspot deleted";
     content_block_deleted.appendChild(el);
-    btn = el.lastElementChild;
+    btn = el.getElementsByClassName('btn_block')[0];
     btn.setAttribute('onclick', "restoreLoodspot('"+id+"')");
-    btn.innerHTML = "&#8635;"
+    label = btn.getElementsByClassName('loodspot_action_btn')[0];
+    label.innerHTML = "restore"
 }
 
-function restoreLoodspot(id){
+async function restoreLoodspot(id){
     fetch("/restore-spot", {
         method: "POST",
         body: JSON.stringify({spot_id:id}),
     });
     el = document.getElementById(id);
-    el.className = "loodspot";
+    el.className = "loodspot user_loodspot loodspot_change_transition";
+    await sleep(400);
+    el.className = "loodspot user_loodspot";
     content_block_not_all.appendChild(el);
-    btn = el.lastElementChild;
+    btn = el.getElementsByClassName('btn_block')[0];
+    label = btn.getElementsByClassName('loodspot_action_btn')[0];
     btn.setAttribute('onclick',"deleteLoodspot('"+id+"')");
-    btn.innerHTML = "&#10005;"
+    label.innerHTML = "remove"
 }
 
 function getCity(cityId){
@@ -63,7 +68,8 @@ async function getLoodspots(){
     //let request = new Request("https://glapp.pl/loodspots")
     await fetch("/api", {
         method: 'POST',
-        body: JSON.stringify() 
+        body: JSON.stringify(),
+        mode: 'no-cors'
     })
     .then(response => response.json())
     .then(data => { 
@@ -71,37 +77,70 @@ async function getLoodspots(){
             loodspot = data[key]
             distance=""
             city=getCity(loodspot.cityId);
-            
-            content = 
-            `<div class="loodspot"">
-                <div class= "loodspot_city loodspot_info">${city}</div>
-                <div class = "loodspot_name loodspot_info">${loodspot.name}</div>
+            content =
+            `<div class="loodspot">
+                <div class="color_bar">
+                    <div class="color_bar_contrast"></div>
+                </div>
+                <div class = "loodspot_block_top">
+                    <div class="city_block"><div class="city">${city}</div></div>
+                    <div class="name_block"><div class="name">${loodspot.name}</div></div>
+                    
+                </div>
+                <div class = "loodspot_block_bottom">
+                    <div class="address_block">
+                        <div class="address">
+                            ${loodspot.address}
+                        </div>
+                    </div>
+                    <div class="distance_block">
+                        <div class="distance"></div>
+                    </div>
+                </div>
             </div>`
             content_block_all.innerHTML += content
             
+            let distance_block_all = document.querySelectorAll(".distance");
+            let last = distance_block_all.length - 1;
             if(geopermission){
                 distance = getDistance(user_latitude, user_longitude, loodspot.coordinates.latitude, loodspot.coordinates.longitude)
-                distanceBlock = document.createElement("div");
-                distanceBlock.className = "distance loodspot_info";
-                distanceBlock.textContent = `${distance} km`;
-                content_block_all.lastChild.appendChild(distanceBlock)
+                distance_block_all[last].innerHTML = `${distance} km`;
+                
             }
             
             if(deleted.includes(loodspot.id)) {
                 content =
-                `<div class="loodspot deleted" id="${loodspot.id}">
-                    <div class = "loodspot_name loodspot_info">${loodspot.name}</div>
-                    <div class = loodspot_action_btn onclick="restoreLoodspot('${loodspot.id}')">&#8635;</div>
+                `<div class="loodspot user_loodspot deleted" id="${loodspot.id}">
+                    <div class="color_bar">
+                        <div class="color_bar_contrast"></div>
+                    </div>
+                    <div class = "loodspot_block_top">
+                        <div class="name_block"><div class="name">${loodspot.name}</div></div>
+                    </div>
+                    <div class = "loodspot_block_bottom">
+                        <div class="btn_block" onclick="restoreLoodspot('${loodspot.id}')">
+                            <div class = loodspot_action_btn>restore</div>
+                        </div>
+                    </div>
                 </div>`
                 content_block_deleted.innerHTML += content 
                 continue
             }
 
             content =
-            `<div class="loodspot" id="${loodspot.id}">
-                <div class = "loodspot_name loodspot_info">${loodspot.name}</div>
-                <div class = loodspot_action_btn onclick="deleteLoodspot('${loodspot.id}')">&#10005;</div>
-            </div>`
+                `<div class="loodspot user_loodspot" id="${loodspot.id}">
+                    <div class="color_bar">
+                        <div class="color_bar_contrast"></div>
+                    </div>
+                    <div class = "loodspot_block_top">
+                        <div class="name_block"><div class="name">${loodspot.name}</div></div>
+                    </div>
+                    <div class = "loodspot_block_bottom">
+                    <div class="btn_block" onclick="deleteLoodspot('${loodspot.id}')">
+                        <div class = loodspot_action_btn>remove</div>
+                    </div>
+                    </div>
+                </div>`
             content_block_not_all.innerHTML += content
         }
     })
@@ -144,6 +183,10 @@ function checkGeoPermission(){
             geopermission = true;
         }
     });
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 (() => {
