@@ -65,11 +65,10 @@ async function getLoodspots(){
     let content = "";
 
 
-    //let request = new Request("https://glapp.pl/loodspots")
+    //"https://glapp.pl/loodspots" /Access to fetch at 'https://glapp.pl/loodspots' from origin 'http://127.0.0.1:5000' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
     await fetch("/api", {
         method: 'POST',
         body: JSON.stringify(),
-        mode: 'no-cors'
     })
     .then(response => response.json())
     .then(data => { 
@@ -77,27 +76,8 @@ async function getLoodspots(){
             loodspot = data[key]
             distance=""
             city=getCity(loodspot.cityId);
-            content =
-            `<div class="loodspot">
-                <div class="color_bar">
-                    <div class="color_bar_contrast"></div>
-                </div>
-                <div class = "loodspot_block_top">
-                    <div class="city_block"><div class="city">${city}</div></div>
-                    <div class="name_block"><div class="name">${loodspot.name}</div></div>
-                    
-                </div>
-                <div class = "loodspot_block_bottom">
-                    <div class="address_block">
-                        <div class="address">
-                            ${loodspot.address}
-                        </div>
-                    </div>
-                    <div class="distance_block">
-                        <div class="distance"></div>
-                    </div>
-                </div>
-            </div>`
+            content = build_loodspot_list_element(city, loodspot.name, loodspot.address)
+            
             content_block_all.innerHTML += content
             
             let distance_block_all = document.querySelectorAll(".distance");
@@ -109,38 +89,12 @@ async function getLoodspots(){
             }
             
             if(deleted.includes(loodspot.id)) {
-                content =
-                `<div class="loodspot user_loodspot deleted" id="${loodspot.id}">
-                    <div class="color_bar">
-                        <div class="color_bar_contrast"></div>
-                    </div>
-                    <div class = "loodspot_block_top">
-                        <div class="name_block"><div class="name">${loodspot.name}</div></div>
-                    </div>
-                    <div class = "loodspot_block_bottom">
-                        <div class="btn_block" onclick="restoreLoodspot('${loodspot.id}')">
-                            <div class = loodspot_action_btn>restore</div>
-                        </div>
-                    </div>
-                </div>`
-                content_block_deleted.innerHTML += content 
+                content = build_deleted_loodspot_element(loodspot.id, loodspot.name);
+                content_block_deleted.innerHTML += content;
                 continue
             }
 
-            content =
-                `<div class="loodspot user_loodspot" id="${loodspot.id}">
-                    <div class="color_bar">
-                        <div class="color_bar_contrast"></div>
-                    </div>
-                    <div class = "loodspot_block_top">
-                        <div class="name_block"><div class="name">${loodspot.name}</div></div>
-                    </div>
-                    <div class = "loodspot_block_bottom">
-                    <div class="btn_block" onclick="deleteLoodspot('${loodspot.id}')">
-                        <div class = loodspot_action_btn>remove</div>
-                    </div>
-                    </div>
-                </div>`
+            content = build_user_loodspot_element(loodspot.id, loodspot.name)
             content_block_not_all.innerHTML += content
         }
     })
@@ -153,7 +107,7 @@ function getPosition() {
 }
 
 
-function getDistance(lat1, lon1, lat2, lon2)
+function getDistance(lat1, lon1, lat2, lon2) //not mine
 {
     lon1 =  lon1 * Math.PI / 180;
     lon2 = lon2 * Math.PI / 180;
@@ -187,6 +141,61 @@ function checkGeoPermission(){
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function build_loodspot_list_element(city, name, address){
+    return `<div class="loodspot">
+                <div class="color_bar">
+                    <div class="color_bar_contrast"></div>
+                </div>
+                <div class = "loodspot_block_top">
+                    <div class="city_block"><div class="city">${city}</div></div>
+                    <div class="name_block"><div class="name">${name}</div></div>
+                    
+                </div>
+                <div class = "loodspot_block_bottom">
+                    <div class="address_block">
+                        <div class="address">
+                            ${address}
+                        </div>
+                    </div>
+                    <div class="distance_block">
+                        <div class="distance"></div>
+                    </div>
+                </div>
+            </div>`
+}
+
+function build_user_loodspot_element(id, name){
+    return `<div class="loodspot user_loodspot" id="${id}">
+                <div class="color_bar">
+                    <div class="color_bar_contrast"></div>
+                </div>
+                <div class = "loodspot_block_top">
+                    <div class="name_block"><div class="name">${name}</div></div>
+                </div>
+                <div class = "loodspot_block_bottom">
+                <div class="btn_block" onclick="deleteLoodspot('${id}')">
+                    <div class = loodspot_action_btn>remove</div>
+                </div>
+                </div>
+            </div>`
+}
+
+function build_deleted_loodspot_element(id, name){
+    return `<div class="loodspot user_loodspot deleted" id="${id}">
+                <div class="color_bar">
+                    <div class="color_bar_contrast"></div>
+                </div>
+                <div class = "loodspot_block_top">
+                    <div class="name_block"><div class="name">${name}</div></div>
+                </div>
+                <div class = "loodspot_block_bottom">
+                    <div class="btn_block" onclick="restoreLoodspot('${id}')">
+                        <div class = loodspot_action_btn>restore</div>
+                    </div>
+                </div>
+            </div>`
 }
 
 (() => {

@@ -13,6 +13,8 @@ services:
       context: .
     ports:
       - 8000:8000
+    volumes:
+      - ./website/static/data/:/app/website/static/data/
 
 # The commented out section below is an example of how to define a PostgreSQL
 # database that your application can use. `depends_on` tells Docker Compose to
