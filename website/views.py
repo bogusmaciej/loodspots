@@ -6,7 +6,7 @@ views = Blueprint("views", __name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
 # removed_file = "/data/loodspots_deleted.txt"
 removed_file = os.path.join(basedir, 'static/data/loodspots_deleted.txt')
-data_file = os.path.join(basedir, 'static/data/loodspots.json')
+data_file = os.path.join(basedir, 'static/loodspots.json')
 
 
 @views.route("/")

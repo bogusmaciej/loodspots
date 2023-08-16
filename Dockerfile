@@ -18,11 +18,11 @@ RUN adduser \
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
     python -m pip install -r requirements.txt
-    chown -R appuser:appuser /app
+    
+RUN chown -R appuser:appuser /app
 
 COPY . .
 
-RUN chmod -c 777 /app/website/static/data/loodspots_deleted.txt
 USER appuser
 
 EXPOSE 8000
