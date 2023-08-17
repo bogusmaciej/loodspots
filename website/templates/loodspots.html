@@ -1,20 +1,66 @@
 {% extends "base.html" %}
 
-{% block content %}
-<div class = loodspots_block>
-    <div class = loodspots_block_content>
-        <h1>all loodspots</h1>
-        <div class="all_loodspots">
+{% block all_loodspots %}
+    {%for loodspot in loodspots%}
+        <div class="loodspot">
+            <div class="color_bar">
+                <div class="color_bar_contrast"></div>
+            </div>
+            <div class = "loodspot_block_top">
+                <div class="city_block"><div class="city">{{ loodspot.city }}</div></div>
+                <div class="name_block"><div class="name">{{ loodspot.name }}</div></div>
+                
+            </div>
+            <div class = "loodspot_block_bottom">
+                <div class="address_block">
+                    <div class="address">
+                        {{ loodspot.address }}
+                    </div>
+                </div>
+                <div class="distance_block">
+                    <div class="distance"></div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<div class = loodspots_block>
-    <div class = loodspots_block_content>
-        <h1>your loodspots</h1>
-        <div class="not_all_loodspots">
-        </div>
-        <div class="deleted_loodspots">
-        </div>
-    </div>
-</div>
+    {%endfor%}
+{% endblock %}
+
+{% block user_loodspots %}
+    {%for loodspot in loodspots%}
+        {% if loodspot.id not in removed %}
+            <div class="loodspot user_loodspot" id="{{ loodspot.id }}">
+                <div class="color_bar">
+                    <div class="color_bar_contrast"></div>
+                </div>
+                <div class = "loodspot_block_top">
+                    <div class="name_block"><div class="name">{{ loodspot.name}}</div></div>
+                </div>
+                <div class = "loodspot_block_bottom">
+                <div class="btn_block" onclick="deleteLoodspot('{{loodspot.id}}')">
+                    <div class = loodspot_action_btn>remove</div>
+                </div>
+                </div>
+            </div>
+        {% endif %}
+    {%endfor%}
+{% endblock %}
+
+{% block deleted_loodspots %}
+    {%for loodspot in loodspots%}
+        {% if loodspot.id in removed %}
+            <div class="loodspot user_loodspot deleted" id="{{ loodspot.id }}">
+                <div class="color_bar">
+                    <div class="color_bar_contrast"></div>
+                </div>
+                <div class = "loodspot_block_top">
+                    <div class="name_block"><div class="name">{{ loodspot.name }}</div></div>
+                </div>
+                <div class = "loodspot_block_bottom">
+                    <div class="btn_block" onclick="restoreLoodspot('{{ loodspot.id }}')">
+                        <div class = loodspot_action_btn>restore</div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {%endfor%}
 {% endblock %}

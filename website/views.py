@@ -11,7 +11,14 @@ data_file = os.path.join(basedir, 'static/loodspots.json')
 
 @views.route("/")
 def show_loodspots():
-    return render_template("loodspots.html")
+    removed = []
+    with open(removed_file) as file:
+        for line in file:
+            removed.append(line.rstrip())
+    
+    with open(data_file) as data:
+        loodspots = data.read()
+    return render_template("loodspots.html", loodspots = json.loads(loodspots), removed = removed)
 
 @views.route("/delete-spot", methods=["POST"])
 def delete_loodspot():

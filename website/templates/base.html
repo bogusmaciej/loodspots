@@ -19,8 +19,23 @@
         </div>
         
     </header>
-    {% block content %} {% endblock %}
+    <div class = loodspots_block>
+        <div class = loodspots_block_content>
+            <h1>all loodspots</h1>
+            <div class="all_loodspots">
+                {% block all_loodspots %} {% endblock %}
+            </div>
+        </div>
+    </div>
+    <div class = loodspots_block>
+        <div class = loodspots_block_content>
+            <h1>your loodspots</h1>
+            <div class="user_loodspots">
+                {% block user_loodspots %} {% endblock %}
+                {% block deleted_loodspots %} {% endblock %}
+            </div>
+        </div>
+    </div>
     <script src="static/script.js"></script>
-    <script src="static/templates.js"></script>
 </body>
 </html>
