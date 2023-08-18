@@ -8,7 +8,7 @@
 <body>
     <header>
         <div class="logo_block header_block">
-            <div><img src="https://goodlood.com/app/images/icons/logo_light_bg.svg" alt="logo"></div>
+            <div>SHOPPING MALLS</div>
         </div>
         <div class="reset_btn_block header_block">
             <a href="/reset-spots">
@@ -19,20 +19,20 @@
         </div>
         
     </header>
-    <div class = loodspots_block>
-        <div class = loodspots_block_content>
-            <h1>all loodspots</h1>
-            <div class="all_loodspots">
-                {% block all_loodspots %} {% endblock %}
+    <div class = spots_block>
+        <div class = spots_block_content>
+            <h1>all spots</h1>
+            <div class="all_spots">
+                {% block all_spots %} {% endblock %}
             </div>
         </div>
     </div>
-    <div class = loodspots_block>
-        <div class = loodspots_block_content>
-            <h1>your loodspots</h1>
-            <div class="user_loodspots">
-                {% block user_loodspots %} {% endblock %}
-                {% block deleted_loodspots %} {% endblock %}
+    <div class = spots_block>
+        <div class = spots_block_content>
+            <h1>your spots</h1>
+            <div class="user_spots">
+                {% block user_spots %} {% endblock %}
+                {% block deleted_spots %} {% endblock %}
             </div>
         </div>
     </div>

@@ -1,0 +1,6 @@
+[
+    {"id":"1","coordinates":{"latitude":50.028657,"longitude":19.952872},"name":"Bonarka City Center","address":"Henryka Kamieńskiego 11, 30-644 Kraków", "city":"KR"},
+    {"id":"2","coordinates":{"latitude":52.230231,"longitude":21.002681},"name":"Złote Tarasy","address":"Złota 59, 00-120 Warszawa", "city":"WWA"},
+    {"id":"3","coordinates":{"latitude":51.096482,"longitude":17.034838},"name":"Wroclavia","address":"Sucha 1, 50-086 Wrocław", "city":"WRO"},
+    {"id":"4","coordinates":{"latitude":52.400411, "longitude":16.954482},"name":"Posnania","address":"Pleszewska 1, 61-136 Poznań", "city":"POZ"}
+]

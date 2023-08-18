@@ -1,34 +1,34 @@
-const user_loodspots = document.querySelector(".user_loodspots")
+const user_spots = document.querySelector(".user_spots")
 
-async function deleteLoodspot(id){
+async function deleteSpot(id){
     fetch("/delete-spot", {
         method: "POST",
         body: JSON.stringify({ spot_id:id}),
     });
 
     el = document.getElementById(id);
-    el.className = "loodspot user_loodspot loodspot_change_transition";
+    el.className = "spot user_spot spot_change_transition";
     await sleep(400);
-    el.className = "loodspot user_loodspot deleted";
+    el.className = "spot user_spot deleted";
     btn = el.getElementsByClassName('btn_block')[0];
-    btn.setAttribute('onclick', "restoreLoodspot('"+id+"')");
+    btn.setAttribute('onclick', "restoreSpot('"+id+"')");
 
-    label = btn.getElementsByClassName('loodspot_action_btn')[0];
+    label = btn.getElementsByClassName('spot_action_btn')[0];
     label.innerHTML = "restore"
 }
 
-async function restoreLoodspot(id){
+async function restoreSpot(id){
     fetch("/restore-spot", {
         method: "POST",
         body: JSON.stringify({spot_id:id}),
     });
     el = document.getElementById(id);
-    el.className = "loodspot user_loodspot loodspot_change_transition";
+    el.className = "spot user_spot spot_change_transition";
     await sleep(400);
-    el.className = "loodspot user_loodspot";
+    el.className = "spot user_spot";
     btn = el.getElementsByClassName('btn_block')[0];
-    label = btn.getElementsByClassName('loodspot_action_btn')[0];
-    btn.setAttribute('onclick',"deleteLoodspot('"+id+"')");
+    label = btn.getElementsByClassName('spot_action_btn')[0];
+    btn.setAttribute('onclick',"deleteSpot('"+id+"')");
     label.innerHTML = "remove"
 }
 
@@ -46,8 +46,8 @@ async function showDistances(){
         .then(response => response.json())
         .then(data => { 
             for (let key in data) {
-                loodspot = data[key]
-                let distance = getDistance(user_latitude, user_longitude, loodspot.coordinates.latitude, loodspot.coordinates.longitude)
+                spot = data[key]
+                let distance = getDistance(user_latitude, user_longitude, spot.coordinates.latitude, spot.coordinates.longitude)
                 
                 all_distance_divs[i].innerHTML = `${distance} km`;
                 i++

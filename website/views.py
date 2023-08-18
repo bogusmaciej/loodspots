@@ -4,24 +4,24 @@ import os
 
 views = Blueprint("views", __name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
-# removed_file = "/data/loodspots_deleted.txt"
-removed_file = os.path.join(basedir, 'static/data/loodspots_deleted.txt')
-data_file = os.path.join(basedir, 'static/loodspots.json')
+# removed_file = "/data/spots_deleted.txt"
+removed_file = os.path.join(basedir, 'static/data/spots_deleted.txt')
+data_file = os.path.join(basedir, 'static/spots.json')
 
 
 @views.route("/")
-def show_loodspots():
+def show_spots():
     removed = []
     with open(removed_file) as file:
         for line in file:
             removed.append(line.rstrip())
     
     with open(data_file) as data:
-        loodspots = data.read()
-    return render_template("loodspots.html", loodspots = json.loads(loodspots), removed = removed)
+        spots = data.read()
+    return render_template("spots.html", spots = json.loads(spots), removed = removed)
 
 @views.route("/delete-spot", methods=["POST"])
-def delete_loodspot():
+def delete_spot():
     req = json.loads(request.data)
     spot_id = req['spot_id']
     with open(removed_file, 'a') as file:
@@ -29,7 +29,7 @@ def delete_loodspot():
     return ""
 
 @views.route("/restore-spot", methods=["POST"])
-def restore_loodspot():
+def restore_spot():
     req = json.loads(request.data)
     spot_id = req['spot_id']
     with open(removed_file, "r") as f:
@@ -41,7 +41,7 @@ def restore_loodspot():
     return ""
 
 @views.route("/reset-spots")
-def reset_loodspots():
+def reset_spots():
     open(removed_file, 'w').close()
     return redirect("/")
 

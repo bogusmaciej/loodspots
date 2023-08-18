@@ -15,16 +15,18 @@ RUN adduser \
     --uid "${UID}" \
     appuser
 
-RUN --mount=type=cache,target=/root/.cache/pip \
-    --mount=type=bind,source=requirements.txt,target=requirements.txt \
-    python -m pip install -r requirements.txt
-    
+
+# --mount=type=cache,target=/root/.cache/pip \
+# --mount=type=bind,source=requirements.txt,target=requirements.txt \
+   
 RUN chown -R appuser:appuser /app
 
 COPY . .
 
-USER appuser
-
 EXPOSE 8000
+
+RUN python -m pip install -r requirements.txt
+
+USER appuser
 
 CMD gunicorn --bind 0.0.0.0:8000 wsgi:app

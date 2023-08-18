@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block all_spots %}
+    {%for spot in spots%}
+        <div class="spot">
+            <div class="color_bar">
+                <div class="color_bar_contrast"></div>
+            </div>
+            <div class = "spot_block_top">
+                <div class="city_block"><div class="city">{{ spot.city }}</div></div>
+                <div class="name_block"><div class="name">{{ spot.name }}</div></div>
+                
+            </div>
+            <div class = "spot_block_bottom">
+                <div class="address_block">
+                    <div class="address">
+                        {{ spot.address }}
+                    </div>
+                </div>
+                <div class="distance_block">
+                    <div class="distance"></div>
+                </div>
+            </div>
+        </div>
+    {%endfor%}
+{% endblock %}
+
+{% block user_spots %}
+    {%for spot in spots%}
+        {% if spot.id not in removed %}
+            <div class="spot user_spot" id="{{ spot.id }}">
+                <div class="color_bar">
+                    <div class="color_bar_contrast"></div>
+                </div>
+                <div class = "spot_block_top">
+                    <div class="name_block"><div class="name">{{ spot.name }}</div></div>
+                </div>
+                <div class = "spot_block_bottom">
+                <div class="btn_block" onclick="deleteSpot('{{ spot.id }}')">
+                    <div class = spot_action_btn>remove</div>
+                </div>
+                </div>
+            </div>
+        {% endif %}
+    {%endfor%}
+{% endblock %}
+
+{% block deleted_spots %}
+    {%for spot in spots%}
+        {% if spot.id in removed %}
+            <div class="spot user_spot deleted" id="{{ spot.id }}">
+                <div class="color_bar">
+                    <div class="color_bar_contrast"></div>
+                </div>
+                <div class = "spot_block_top">
+                    <div class="name_block"><div class="name">{{ spot.name }}</div></div>
+                </div>
+                <div class = "spot_block_bottom">
+                    <div class="btn_block" onclick="restoreSpot('{{ spot.id }}')">
+                        <div class = spot_action_btn>restore</div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {%endfor%}
+{% endblock %}
