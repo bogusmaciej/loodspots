@@ -1,0 +1,15 @@
+---
+- name: Test raspberryPi
+  gather_facts: false
+  become: true
+  hosts: raspberryPi
+  roles:
+    - sys_config
+    - copy_files
+    - docker_remove
+    - docker_setup
+  vars:
+    project_path: "/var/www/project"
+    image_name: projectimage
+    container_name: projectcontainer
+    

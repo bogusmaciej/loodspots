@@ -1,0 +1,19 @@
+- name: Stop old container
+  docker_container:
+    name: "{{ container_name }}"
+    state: stopped
+  when: containers.stdout.find(container_name) != -1
+  
+
+- name: Remove old container
+  docker_container:
+    name: "{{ container_name }}"
+    state: absent
+
+
+- name: Remove old image
+  docker_image:
+    state: absent
+    name: "{{ image_name }}"
+    tag: latest
+    force_absent: yes

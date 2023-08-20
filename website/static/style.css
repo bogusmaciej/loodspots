@@ -100,11 +100,11 @@ header{
 }
 
 .deleted .color_bar{
-    background-color: #f3999440;
+    background-color: rgba(95, 158, 160, 0.4);
 }
 
 .deleted .color_bar .color_bar_contrast{
-    background-color: #561d2540;
+    background-color: hsla(182, 26%, 22%, 0.4);
 }
 
 .spot_block_top{

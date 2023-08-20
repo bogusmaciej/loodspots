@@ -1,0 +1,38 @@
+- name: Create a volume
+  docker_volume:
+    name: "{{ volume_name }}"
+
+
+- name: Change volume owner
+  file:
+    path: "/var/lib/docker/volumes/{{ volume_name }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+
+- name: Create Docker image
+  docker_image:
+    build:
+      path: "{{ project_path }}"
+      args:
+        listen_port: "{{ my_app_port }}"
+    name: "{{ image_name }}"
+    source: build
+
+
+- name: Start Docker container
+  docker_container:
+    name: "{{ container_name }}"
+    image: "{{ image_name }}"
+    state: started
+    volumes:
+      - "{{ volume_name }}:/app/website/static/data"
+    ports:
+      - "{{ my_app_port }}:8000"
+    restart_policy: unless-stopped
+
+
+- name: Set cron to run container after reboot
+  cron:
+    name: "run container"
+    special_time: reboot
+    job: "docker start {{ container_name }}"

@@ -1,0 +1,13 @@
+- name: Create app directory
+  file: 
+    path: "{{ project_path }}"
+    state: directory
+
+
+- name: Get containers list
+  shell: docker ps -a
+  register: containers
+
+
+- name: Add User to Docker group
+  shell: usermod -aG docker $USER

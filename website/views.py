@@ -4,7 +4,6 @@ import os
 
 views = Blueprint("views", __name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
-# removed_file = "/data/spots_deleted.txt"
 removed_file = os.path.join(basedir, 'static/data/spots_deleted.txt')
 data_file = os.path.join(basedir, 'static/spots.json')
 
@@ -48,7 +47,7 @@ def reset_spots():
 @views.route("/api/deleted", methods=["POST", "GET"])
 def deleted():
     data = []
-    with open(removed_file) as file:
+    with open(removed_file, "w+") as file:
         for line in file:
             data.append(line.rstrip())
     return data

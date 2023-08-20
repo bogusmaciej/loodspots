@@ -5,7 +5,7 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-ARG UID=10001
+ARG UID=1000
 RUN adduser \
     --disabled-password \
     --gecos "" \
@@ -18,10 +18,11 @@ RUN adduser \
 
 # --mount=type=cache,target=/root/.cache/pip \
 # --mount=type=bind,source=requirements.txt,target=requirements.txt \
-   
-RUN chown -R appuser:appuser /app
 
 COPY . .
+
+RUN chown -R appuser:appuser /app
+RUN chown -R appuser:appuser /app/website/static/data
 
 EXPOSE 8000
 

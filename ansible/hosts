@@ -1,0 +1,2 @@
+[raspberryPi]
+raspberry1                my_app_port=8080 ansible_host=[your_host_ip] ansible_user=pi ansible_password=password ansible_become_pass=password

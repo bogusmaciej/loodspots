@@ -1,0 +1,7 @@
+- name: Copy app files
+  synchronize:
+    src: "/home/user/Desktop/project/"
+    dest: "{{ project_path }}"
+    rsync_opts:
+      - "--exclude=.git"
+      - "--exclude=.gitignore"
